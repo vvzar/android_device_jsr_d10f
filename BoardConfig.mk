@@ -59,7 +59,7 @@ BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
-TARGET_KERNEL_SOURCE := kernel/jsr/d10f
+TARGET_KERNEL_SOURCE := kernel/jsr/msm8226
 TARGET_KERNEL_CONFIG := jsr_d10f_defconfig 
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
