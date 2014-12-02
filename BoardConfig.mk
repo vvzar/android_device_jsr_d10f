@@ -53,7 +53,7 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 # Kernel
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37
 # BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=0 stopnum=88000
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=0 log_no_ring=1 stopnum=88000
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 debug loglevel=8 logo.nologo boot_delay=9999 bootmem_debug
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 debug loglevel=8 logo.nologo bootmem_debug
 BOARD_KERNEL_BASE := 0x00000000
@@ -81,7 +81,7 @@ AUDIO_FEATURE_DISABLED_ANC_HEADSET := true
 AUDIO_FEATURE_DISABLED_DS1_DOLBY_DDP := true
 AUDIO_FEATURE_DISABLED_SSR := true
 BOARD_USES_ALSA_AUDIO := true
-TARGET_QCOM_AUDIO_VARIANT := caf-new
+TARGET_QCOM_AUDIO_VARIANT := caf
 
 # Bionic
 # TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
@@ -117,7 +117,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Media
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf-new
 
 # Motorola
 # TARGET_USES_MOTOROLA_LOG := true
