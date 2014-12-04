@@ -48,7 +48,7 @@ TARGET_NO_BOOTLOADER := true
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp 
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 
 # Kernel
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37
@@ -94,6 +94,7 @@ BLUETOOTH_HCI_USE_MCT := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_DISPLAY_INSECURE_MM_HEAP := true
 
 # Classpath
 #PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
@@ -108,6 +109,7 @@ TARGET_QCOM_DISPLAY_VARIANT := caf-new
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
@@ -141,18 +143,20 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_USES_QCOM_BSP := true
 
 # Recovery
+# TARGET_NO_RECOVERY := true
+RECOVERY_VARIANT := cm
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
 BOARD_SUPPRESS_EMMC_WIPE := true
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
+# BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 # TARGET_USERIMAGES_USE_F2FS := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom 
 
 # TWRP
-HAVE_SELINUX := true
-DEVICE_RESOLUTION := 720x1280
+# HAVE_SELINUX := true
+# DEVICE_RESOLUTION := 720x1280
 # TW_IGNORE_MAJOR_AXIS_0 := true
 # TW_INTERNAL_STORAGE_PATH := "/storage/sdcard1"
 # TW_INTERNAL_STORAGE_MOUNT_POINT := "sdcard1"
@@ -211,7 +215,7 @@ ifneq ($(TARGET_BUILD_VARIANT),user)
 endif
 
 # Time services
-#BOARD_USES_QC_TIME_SERVICES := true
+BOARD_USES_QC_TIME_SERVICES := true
 
 # Vold
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
