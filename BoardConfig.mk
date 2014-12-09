@@ -51,11 +51,7 @@ TARGET_GLOBAL_CFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 
 # Kernel
-# BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37
-# BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=0 log_no_ring=1 stopnum=88000
-# BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 debug loglevel=8 logo.nologo boot_delay=9999 bootmem_debug
-# BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 debug loglevel=8 logo.nologo bootmem_debug
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=2 log_no_ring=1 stopnum=88000
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -132,7 +128,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1048576000
 BOARD_CACHEIMAGE_PARTITION_SIZE := 134217728
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 3145678336
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 3145677824
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_HAS_LARGE_FILESYSTEM := true
 
@@ -141,6 +137,9 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_USES_QCOM_BSP := true
+# QCOM_BSP_WITH_GENLOCK := true
+# COMMON_GLOBAL_CFLAGS += -DQCOM_BSP_ABI_HACK
+# COMMON_GLOBAL_CFLAGS += -DUSE_MDP3
 
 # Recovery
 # TARGET_NO_RECOVERY := true
