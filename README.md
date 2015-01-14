@@ -1,0 +1,62 @@
+# android_device_jsr_d10f
+Device tree for JSR D10F (msm8228)
+
+--------------------------
+ROM for JSR D10F (HighScreen Boost 2 SE)
+
+Kernel based on CAF kk_3.5_rb1.21
+
+--------------------------
+Install Ubuntu 14.04 x64
+
+sudo apt-get update
+
+sudo apt-get install doublecmd-gtk
+sudo apt-get install numlockx
+sudo apt-get install schedtool
+sudo apt-get install p7zip-rar p7zip-full
+sudo apt-get install device-tree-compiler
+
+sudo apt-get install gcc-4.7
+
+sudo apt-get install curl
+PATH=~/bin:$PATH
+sudo curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+
+sudo apt-get install openjdk-7-jdk
+
+sudo apt-get install git gnupg flex bison gperf build-essential \
+  zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev \
+  libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 \
+  libgl1-mesa-dev g++-multilib mingw32 tofrodos \
+  python-markdown libxml2-utils xsltproc zlib1g-dev:i386
+
+sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+
+--------------------------
+mkdir ~/cm11
+cd ~/cm11
+git config --global user.email "user@gmail.com"
+git config --global user.name "github_account"
+repo init -u git://github.com/CyanogenMod/android.git -b cm-11.0
+repo sync
+
+--------------------------
+cd ~/cm11/.repo/local_manifests
+wget https://raw.github.com/remittor/android_device_jsr_d10f/master/.repo/local_manifests/jsr_d10f.xml
+cd ~/cm11
+repo sync
+
+--------------------------
+cd ~/cm11
+source build/envsetup.sh
+prebuilts/misc/linux-x86/ccache/ccache -M 50G
+cd ~/cm11/vendor/cm
+. get-prebuilts
+cd ~/cm11
+source build/envsetup.sh
+
+--------------------------
+lunch full_d10f-eng dist
+mka otapackage
