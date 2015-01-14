@@ -1,4 +1,3 @@
-# android_device_jsr_d10f
 Device tree for JSR D10F (msm8228)
 
 --------------------------
