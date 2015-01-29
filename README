@@ -10,7 +10,6 @@ Install Ubuntu 14.04 x64
 
 sudo apt-get update
 
-sudo apt-get install doublecmd-gtk
 sudo apt-get install numlockx
 sudo apt-get install schedtool
 sudo apt-get install p7zip-rar p7zip-full
@@ -45,7 +44,7 @@ repo sync
 cd ~/cm11/.repo/local_manifests
 wget https://raw.github.com/remittor/android_device_jsr_d10f/master/.repo/local_manifests/jsr_d10f.xml
 cd ~/cm11
-repo sync
+repo sync --no-clone-bundle
 
 --------------------------
 cd ~/cm11
