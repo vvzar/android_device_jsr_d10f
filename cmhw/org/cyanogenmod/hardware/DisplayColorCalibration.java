@@ -16,40 +16,47 @@
 
 package org.cyanogenmod.hardware;
 
+import java.io.File;
+import java.util.Scanner;
 import org.cyanogenmod.hardware.util.FileUtils;
 
-import java.io.File;
-
 public class DisplayColorCalibration {
-
-    private static final String KCAL_TUNING_FILE = "/sys/devices/platform/kcal_ctrl.0/kcal";
-    private static final String KCAL_CTRL_FILE = "/sys/devices/platform/kcal_ctrl.0/kcal_ctrl";
+    private static final String COLOR_FILE = "/sys/devices/platform/kcal_ctrl.0/kcal";
+    private static final String COLOR_FILE_CTRL = "/sys/devices/platform/kcal_ctrl.0/kcal_ctrl";
+    private static final String COLOR_MIN = "/sys/devices/platform/kcal_ctrl.0/kcal_min";
 
     public static boolean isSupported() {
-        File file = new File(KCAL_TUNING_FILE);
-        return file.exists();
+        File f = new File(COLOR_FILE);
+        return f.exists();
     }
 
-    public static int getMaxValue() {
+    public static int getMaxValue()  {
         return 255;
     }
 
-    public static int getMinValue() {
-        return 0;
+    public static int getMinValue()  {
+        int ret = 35;  // 35 is a good default minimum
+        try {
+            Scanner s = new Scanner(new File(COLOR_MIN));
+            ret = s.nextInt();
+            s.close();
+        } catch (Exception ex) {}
+
+        return ret;
     }
 
     public static int getDefValue() {
-        return 255;
+        return getMaxValue();
     }
 
-    public static String getCurColors() {
-        return FileUtils.readOneLine(KCAL_TUNING_FILE);
+    public static String getCurColors()  {
+        return FileUtils.readOneLine(COLOR_FILE);
     }
 
     public static boolean setColors(String colors) {
-        if (!FileUtils.writeLine(KCAL_TUNING_FILE, colors)) {
+        if (!FileUtils.writeLine(COLOR_FILE, colors)) {
             return false;
         }
-        return FileUtils.writeLine(KCAL_CTRL_FILE, "1");
+        return FileUtils.writeLine(COLOR_FILE_CTRL, "1");
     }
 }

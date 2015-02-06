@@ -1,3 +1,3 @@
-add_lunch_combo full_d10f-eng
-add_lunch_combo full_d10f-user
-add_lunch_combo full_d10f-userdebug
+add_lunch_combo jsr_d10f-eng
+add_lunch_combo jsr_d10f-user
+add_lunch_combo jsr_d10f-userdebug

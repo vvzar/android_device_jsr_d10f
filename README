@@ -42,7 +42,7 @@ repo sync
 
 --------------------------
 cd ~/cm11/.repo/local_manifests
-wget https://raw.github.com/remittor/android_device_jsr_d10f/master/.repo/local_manifests/jsr_d10f.xml
+wget https://raw.github.com/remittor/android_device_jsr_d10f/master/jsr_d10f.xml
 cd ~/cm11
 repo sync --no-clone-bundle
 
@@ -56,5 +56,5 @@ cd ~/cm11
 source build/envsetup.sh
 
 --------------------------
-lunch full_d10f-eng dist
+lunch jsr_d10f-eng dist
 mka otapackage

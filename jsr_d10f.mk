@@ -14,29 +14,23 @@
 # limitations under the License.
 #
 
-# Release name
-PRODUCT_RELEASE_NAME := d10f
-
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1280
-TARGET_SCREEN_WIDTH := 720
-
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from d10f device
 $(call inherit-product, device/jsr/d10f/device.mk)
+$(call inherit-product-if-exists, vendor/jsr/d10f/d10f-vendor.mk)
 
 # Override bootanimation
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := d10f
-PRODUCT_NAME := full_d10f
-PRODUCT_BRAND := jsr
-PRODUCT_MODEL := d10f
-PRODUCT_MANUFACTURER := jsr
+PRODUCT_NAME := jsr_d10f
+PRODUCT_BRAND := JSR
+PRODUCT_MODEL := D10F
+PRODUCT_MANUFACTURER := JSR
+
+PRODUCT_GMS_CLIENTID_BASE := android-google

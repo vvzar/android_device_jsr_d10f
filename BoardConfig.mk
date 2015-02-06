@@ -25,7 +25,6 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 TARGET_GCC_VERSION_EXP := 4.7
 # BOARD_USE_LEGACY_TOUCHSCREEN := true
 DISABLE_DEXPREOPT := true
-# TARGET_NO_RADIOIMAGE := true
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := d10f
@@ -45,13 +44,14 @@ TARGET_CPU_VARIANT := krait
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8226
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=softfp
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=9 log_no_ring=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 lpj=192000 debug ignore_loglevel pmemlog=9 panic_restart=9 log_no_ring=0
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -65,12 +65,11 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
 # TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_d10f.c
 # TARGET_UNIFIED_DEVICE := true
 
-#WLAN_MODULES:
-#	mkdir -p $(KERNEL_MODULES_OUT)/pronto
-#	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/pronto/pronto_wlan.ko
-#	ln -sf /system/lib/modules/pronto/pronto_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
+# Chromium
+PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
-#TARGET_KERNEL_MODULES += WLAN_MODULES
+# ANT+
+#BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
 AUDIO_FEATURE_DISABLED_ANC_HEADSET := true
@@ -90,13 +89,25 @@ BLUETOOTH_HCI_USE_MCT := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+#USE_CAMERA_STUB := true
 TARGET_DISPLAY_INSECURE_MM_HEAP := true
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Classpath
 #PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
 
-# CMHW
-## BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
+# Enable suspend during charger mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# FM
+BOARD_HAVE_QCOM_FM := true
+
+# GPS
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+TARGET_NO_RPC := true
+
+# CMHW (Hardware tunables)
+BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
 
 # Display
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
@@ -106,6 +117,17 @@ TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 TARGET_DISPLAY_USE_RETIRE_FENCE := true
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+# Shader cache config options
+# Maximum size of the GLES Shaders that can be cached for reuse.
+# Increase the size if shaders of size greater than 12KB are used.
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+
+# Maximum GLES shader cache size for each app to store the compiled shader
+# binaries. Decrease the size if RAM or Flash Storage size is a limitation
+# of the device.
+MAX_EGL_CACHE_SIZE := 2048*1024
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
@@ -167,51 +189,14 @@ BOARD_SEPOLICY_DIRS += \
     $(LOCAL_PATH)/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-    adbd.te \
-    app.te \
-    bluetooth_loader.te \
-    bridge.te \
-    camera.te \
-    device.te \
-    dhcp.te \
-    dnsmasq.te \
-    domain.te \
-    drmserver.te \
-    file_contexts \
     file.te \
-    hostapd.te \
-    init_shell.te \
-    init.te \
-    libqc-opt.te \
-    mediaserver.te \
-    mpdecision.te \
-    netd.te \
-    netmgrd.te \
-    nfc.te \
-    property_contexts \
-    property.te \
-    qcom.te \
-    qmux.te \
-    radio.te \
-    rild.te \
-    rmt.te \
-    sdcard_internal.te \
-    sdcardd.te \
-    sensors.te \
-    shell.te \
-    surfaceflinger.te \
-    system.te \
-    tee.te \
-    te_macros \
-    thermald.te \
-    ueventd.te \
-    vold.te \
-    wpa_supplicant.te \
-    zygote.te
+    device.te \
+    app.te \
+    file_contexts
 
-ifneq ($(TARGET_BUILD_VARIANT),user)
-    BOARD_SEPOLICY_UNION += su.te
-endif
+#ifneq ($(TARGET_BUILD_VARIANT),user)
+#    BOARD_SEPOLICY_UNION += su.te
+#endif
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
@@ -229,8 +214,10 @@ BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
-#WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
-#WIFI_DRIVER_MODULE_NAME := "wlan"
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME := "wlan"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-WIFI_DRIVER_FW_PATH_STA := ""
+#WIFI_DRIVER_FW_PATH_STA := ""
+TARGET_USES_WCNSS_CTRL := true
+TARGET_USES_QCOM_WCNSS_QMI := true
 
