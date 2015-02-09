@@ -49,12 +49,11 @@ repo sync --no-clone-bundle
 --------------------------
 cd ~/cm11
 source build/envsetup.sh
-prebuilts/misc/linux-x86/ccache/ccache -M 50G
 cd ~/cm11/vendor/cm
 . get-prebuilts
 cd ~/cm11
 source build/envsetup.sh
 
 --------------------------
-lunch jsr_d10f-eng dist
+lunch jsr_d10f-userdebug dist
 mka otapackage
