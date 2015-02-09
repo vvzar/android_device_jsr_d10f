@@ -62,7 +62,7 @@ PRODUCT_PACKAGES += \
     tinymix
 
 # Audio configuration
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf
 #PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/audio_platform_info.xml:system/etc/audio_platform_info.xml
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/mixer_paths.xml:system/etc/mixer_paths.xml
@@ -147,8 +147,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
 
 # Keystore
-#PRODUCT_PACKAGES += \
-#    keystore.msm8226
+PRODUCT_PACKAGES += \
+    keystore.msm8226
 
 # Lights
 PRODUCT_PACKAGES += \
