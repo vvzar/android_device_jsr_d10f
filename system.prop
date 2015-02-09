@@ -47,3 +47,15 @@ persist.radio.msgtunnel.start=false
 persist.radio.multisim.config=dsds
 ro.telephony.call_ring.multiple=false
 telephony.lteOnCdmaDevice=0
+
+# Enable/disable cabl (Content Adaptive Backlight)
+ro.qualcomm.cabl=0
+ro.qualcomm.svi=0 
+
+# Qualcomm speciefic
+qcom.hw.aac.encoder=true
+ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+
+# System props for time-services
+persist.timed.enable=true
+
