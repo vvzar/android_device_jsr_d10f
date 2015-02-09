@@ -184,20 +184,6 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 # TW_EXTERNAL_STORAGE_PATH := "/storage/sdcard0"
 # TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard0"
 
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    $(LOCAL_PATH)/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    file.te \
-    device.te \
-    app.te \
-    file_contexts
-
-#ifneq ($(TARGET_BUILD_VARIANT),user)
-#    BOARD_SEPOLICY_UNION += su.te
-#endif
-
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 

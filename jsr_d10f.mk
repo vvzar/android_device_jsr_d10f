@@ -14,12 +14,23 @@
 # limitations under the License.
 #
 
+# Release name
+PRODUCT_RELEASE_NAME := d10f
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_WIDTH := 720
+
+# Inherit some common CM stuff.
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from d10f device
 $(call inherit-product, device/jsr/d10f/device.mk)
+$(call inherit-product-if-exists, device/jsr/d10f/sepolicy.mk)
+$(call inherit-product-if-exists, vendor/cm/sepolicy/sepolicy.mk)
 $(call inherit-product-if-exists, vendor/jsr/d10f/d10f-vendor.mk)
 
 # Override bootanimation
