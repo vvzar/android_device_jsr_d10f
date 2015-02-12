@@ -351,7 +351,7 @@ service time_daemon /system/bin/time_daemon
     user root
     group root
 
-service mpdecision /system/bin/mpdecision --avg_comp
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     class main
     user root
     group root system
@@ -482,3 +482,4 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1593600
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1593600
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor performance
+    start mpdecision
